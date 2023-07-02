@@ -1,0 +1,30 @@
+#app{
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    text-align:center;
+    color:#2c3e50;
+    margin-top:60px;
+}
+html,
+    body {
+        margin: 0;
+        padding: 0
+    }
+
+    section {
+        height: 100vh;
+        display: grid;
+        justify-items: center;
+        padding-top: 40px
+    }
+
+    div {
+        margin: 24px auto
+    }
+
+    label {
+        font-weight: bolder;
+        display: block;
+        margin-bottom: 4px
+    }
