@@ -1,5 +1,5 @@
 <template>
-<main class="corpo">
+<section class="corpo">
     
     <section class="principal">
 
@@ -80,7 +80,7 @@
         
         
     </section>
-</main>
+</section>
 </template>
 
 <script>
@@ -176,7 +176,7 @@ export default {
             this.alterUser=usuario
         },
         atualizarUser() {
-            
+            //não funciona, consertar
             if(this.alterUser.senha !=null && this.alterUser.senha !=''){
                 this.editUser.senha = this.alterUser.senha
                 Swal.fire({
