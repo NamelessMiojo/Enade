@@ -14,10 +14,10 @@
                     </div>
                     <div>
                         <label for="questoes">Questoes</label>
-                        <div v-for="questao in listQuestoes" :key="questao.id" @submit.prevent="newProva.questoes.push(questao)">
+                        <div v-for="questao in listQuestoes" :key="questao.id">
                             {{questao.tipoQuestao.nome}} | 
                             {{questao.descricao}}
-                            <button >Adicionar</button>
+                            <button @click="adicionarQuestao(questao)">Adicionar</button>
                         </div>
                     </div>
                     <button > Cadastrar Prova </button>
@@ -47,15 +47,17 @@ import axios from 'axios'
                     ],
                 },
                 listQuestoes: [],
-                
+                newQuestao:{
+                    id:'',
+                },
                 listProvaQuestoes:[],
                 
             }
         },
         methods:{
             adicionarQuestao(questao){
-                
-                this.listProvaQuestoes=(questao)
+                //funciona tanto passando apenas o id quanto o objeto inteiro
+                this.listProvaQuestoes.push(questao)
                 console.log(this.listProvaQuestoes)
             },
             addProva(){
