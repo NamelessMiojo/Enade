@@ -66,49 +66,50 @@ export default {
             this.filtro = '?'
             if (this.id != null && this.id != '') {
                 this.filtro += 'id=' + this.id + '&'
-            }if(this.descricao != null && this.descricao !=''){
+            }
+            if (this.descricao != null && this.descricao != '') {
                 this.filtro += 'descricao=' + this.descricao + '&'
-            }if(this.estado != null && this.estado !=''){
-                this.filtro+='estado=' + this.estado + '&'
-            }if(this.tipoQuestao !=null && this.tipoQuestao !=''){
-                this.filtro+= 'tipoQuestao=' + this.tipoQuestao + '&'
+            }
+            if (this.estado != null && this.estado != '') {
+                this.filtro += 'estado=' + this.estado + '&'
+            }
+            if (this.tipoQuestao != null && this.tipoQuestao != '') {
+                this.filtro += 'tipoQuestao=' + this.tipoQuestao + '&'
             }
             axios.get(this.url + this.filtro)
-            .then(response => this.filterQuestoes = (response.data.contents))
+                .then(response => this.filterQuestoes = (response.data.contents))
         },
-        deleteQuestao(questaoId){
+        deleteQuestao(questaoId) {
             Swal.fire({
                 titleText: 'Deseja remover essa questao?',
                 showCancelButton: true,
                 cancelButtonText: 'Cancelar',
-                cancelButtonColor:'grey',
-                showCloseButton:true,
+                cancelButtonColor: 'grey',
+                showCloseButton: true,
                 confirmButtonText: 'Excluir',
                 confirmButtonColor: 'red',
-                
-            }).then((result) =>{
-                if(result.isConfirmed){
-                    axios.delete(this.url +questaoId)
-                    .then((response) =>{
-                        console.log(response.data.code)
-                        if(response.data.code == '2'){
-                            Swal.fire('Erro: Elemento não encontrado!')
-                        }else if(response.data.code == '1'){
-                            Swal.fire('Exclusão bem sucedida!')
-                        }
-                    })
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete(this.url + questaoId)
+                        .then((response) => {
+                            if (response.data.code == '2') {
+                                Swal.fire('Erro: Elemento não encontrado!')
+                            } else if (response.data.code == '1') {
+                                Swal.fire('Exclusão bem sucedida!')
+                            }
+                        })
                 }
             })
         },
-        atualizaQuestao(){
-            
+        atualizaQuestao() {
+
         }
-        
+
     }
 }
 </script>
 
-    
 <style>
 body {
     justify-content: center;

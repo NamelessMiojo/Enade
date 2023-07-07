@@ -17,10 +17,10 @@
                         <div v-for="questao in listQuestoes" :key="questao.id">
                             {{questao.tipoQuestao.nome}} | 
                             {{questao.descricao}}
-                            <button @click="adicionarQuestao(questao)">Adicionar</button>
+                            <button @click="adicionarQuestao(questao.id)">Adicionar</button>
                         </div>
                     </div>
-                    <button > Cadastrar Prova </button>
+                    <button @click="resetForm" > Cadastrar Prova </button>
                 </form>
 
             </section>
@@ -38,7 +38,7 @@ import axios from 'axios'
     export default {
         data(){
             return {
-                url: '',
+                url: 'http://localhost:56918/prova/',
                 newProva:{
                     dataProva:'',
                     nome:'',
@@ -50,18 +50,21 @@ import axios from 'axios'
                 newQuestao:{
                     id:'',
                 },
-                listProvaQuestoes:[],
+                
                 
             }
         },
         methods:{
+            resetForm() {
+          this.$refs.form.reset();
+        },
             adicionarQuestao(questao){
                 //funciona tanto passando apenas o id quanto o objeto inteiro
-                this.listProvaQuestoes.push(questao)
-                console.log(this.listProvaQuestoes)
+                this.newProva.questoes.push(questao)
+                
             },
             addProva(){
-                //axios.post(this.url, this.newProva)
+                axios.post(this.url, this.newProva)
             }
         },
         mounted(){
