@@ -39,6 +39,7 @@
   
 <script>
 import axios from 'axios'
+import usuario from '../../loadComponents/usuario'
 
 export default {
     data() {
@@ -51,18 +52,17 @@ export default {
                     id: ''
                 }
             },
-            users: [],
+            
             tiposUsers: [],
             user: {},
         }
     },
     methods: {
         resetForm() {
-          this.$refs.form.reset();
+          usuario.resetForm(this.$refs.form)
         },
         addUser() {
-            axios.post('http://localhost:56918/usuario/', this.newUser)
-            //passar um clear input aqui
+            usuario.criarUser(this.newUser)
         },
         getListUsers() {
             axios.get('http://localhost:56918/usuario/')
@@ -71,8 +71,7 @@ export default {
         
     },
     mounted() {
-        axios.get('http://localhost:56918/usuario/')
-            .then(response => this.users = (response.data.contents))
+        
         axios.get('http://localhost:56918/tipoUsuario/')
             .then(response => this.tiposUsers = (response.data.contents))
     },
@@ -104,3 +103,4 @@ label {
     margin-bottom: 4px
 }
 </style>
+../../loadComponents/usuarioTeste

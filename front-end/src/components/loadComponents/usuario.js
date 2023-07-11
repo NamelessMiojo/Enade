@@ -1,59 +1,61 @@
-import axios from 'axios'
+let axios = require('axios')
+let Swal = require('sweetalert2') 
 
-export default {
-  data(){
-    return{
-      newUser: {nome: '', email: '', senha: '' , tipoUsuario:{id: ''}},
-      users: [],
-      tiposUsers: [],
-      user: {},
-      
-    }
-  },
-  methods: {
-    postUser(){
-      axios.post('http://localhost:56918/usuario/', this.newUser)
-    },
-    getListUsers(){
-        axios.get('http://localhost:56918/usuario/')
-    .then(response => this.users = (response.data.contents))
-    },
-    //talvez
-    deleteUser(){
-      axios.delete('', this.user)
-    },
-    getUser(){
-      axios.get('', + this.id).then(response => this.user = (response.data))
-    },
-    attUser(){
-      axios.put('', )
-    }
-  },
-  mounted(){
-    /*function addUsuario(){
-      axios.post('http://localhost:56918/usuario/',{
-      nome: 'savio',
-      email: 'savio@gmail.com',
-      senha: '456',
-      tipoUsuario: { id: 1}
-    },
-    )
-    }*/
-    //function getUsuario(){
-      axios.get('http://localhost:56918/usuario/')
-      .then(response => this.users = (response.data.contents))
-    //}
-    axios.get('http://localhost:56918/tipoUsuario/')
-    .then(response => this.tiposUsers = (response.data.contents))
-    //axios.put('http://localhost:56918/usuario/1', {
-      //nome: 'Arthur'
-    //})
-    //.then(response => console.log(response))
-    //axios.delete('http://localhost:56918/usuario/6')
-    //.then(response => console.log(response))
+var url= 'http://localhost:56918/usuario/';
+var filteredUsers=[];
+
+let resetForm = (formulario) => {
+    formulario.reset();
+}
+
+let getUsers = (filtro) =>{
     
-  }
-};
+    axios.get(url + filtro)
+    .then((response) =>  
+        filteredUsers = (response.data.contents)
+    )
+    return filteredUsers
+}
+let criarUser = (newUser) => {
+    Swal.fire({
+        titleText: 'Deseja Cadastrar Usuário?',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        cancelButtonColor: 'grey',
+        showCloseButton: true,
+        confirmButtonText: 'Cadastrar',
+        confirmButtonColor: 'green',
+      }).then((result) => {
+        if(result.isConfirmed){
+          axios.post(url, newUser)
+            .then((response) => {
+              if (response.data.code == '2') {
+                Swal.fire('Erro!')
+              } else if (response.data.code == '1') {
+                Swal.fire('Usuário Cadastrado!')
+              }
+            })
+        }
+      })    
+}
 
+let deleteUser = (userId) => {
+    var codigo;
+    Swal.fire('Deseja Remover esse usuário?')
+            axios.delete(url + userId)
+                .then(response => codigo = (response.data.code))
+            if (codigo == 2) {
+                Swal.fire('Usuário Não Encontrado!')
+            } else {
+                Swal.fire('Usuário Removido!')
+            }
+}
 
+var clusterCadastro = {
+    criarUser: criarUser,
+    resetForm: resetForm,
+    getUsers: getUsers, 
+    deleteUser: deleteUser,  
+}
 
+export default clusterCadastro;

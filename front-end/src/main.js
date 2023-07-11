@@ -6,7 +6,7 @@ import {reactive} from 'vue'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
-import usuario from './components/loadComponents/usuario'
+import usuario from './components/loadComponents/usuarioTeste'
 import App from './App.vue'
 
 const app = createApp(App)
@@ -17,9 +17,6 @@ app.component('VueDatePicker', VueDatePicker);
 app.use(router)
 app.use(reactive)
 app.use(usuario)
-
-
-
 
 
 app.mount('#app')

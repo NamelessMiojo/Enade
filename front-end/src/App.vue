@@ -10,26 +10,31 @@
   </div>
 
   <hr>
-     
+     <child-test firstName="teste1" />
+     <child-test firstName="teste2" />
+     <child-test firstName="teste3" />
+     <child-test firstName="teste4" />
     
   
   
   <router-view/>
 </template>
 
-<!--<script>
+<script>
     
     //import telaCadastro from './views/telaCadastro.vue'
-    import routes from './components/router/routes'
+    //import routes from './components/router/routes'
+    import ChildTest from './components/ChildTest.vue'
 
     export default {
-        components:{
-          routes,
+        components:{ 
+          ChildTest
+          //routes,
         }
         
 
     }
-</script>-->
+</script>
 
 
 

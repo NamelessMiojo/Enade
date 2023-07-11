@@ -87,6 +87,8 @@
 
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import usuario from '../../loadComponents/usuario'
+// Saber como importar isso e funcionar => import UsuarioJs from '../../loadComponents/usuario'
 
 
 
@@ -94,7 +96,7 @@ import Swal from 'sweetalert2'
 export default {
     data() {
         return {
-            activity: false,
+            //activity: false,
             editUser:{},
             alterUser: {
                 nome:'',
@@ -113,9 +115,9 @@ export default {
             url: 'http://localhost:56918/usuario/',
             filtro: '',
             codigo: '',
-            dismissSecs: 10,
-            dismissCountDown: 0,
-            showDismissibleAlert: false
+            //dismissSecs: 10,
+            //dismissCountDown: 0,
+            //showDismissibleAlert: false
 
         }
     },
@@ -157,26 +159,26 @@ export default {
             if (this.tipoUser != null && this.tipoUser != '') {
                 this.filtro += 'tipoUsuario=' + this.tipoUser + '&';
             }
-            axios.get(this.url + this.filtro)
-                .then(response => this.filterUsers = (response.data.contents))
+            //console.log(this.filtro)
+            this.filterUsers = usuario.getUsers(this.filtro)
+            //axios.get(this.url + this.filtro)
+              //  .then(response => this.filterUsers = (response.data.contents))
         },
         deleteUser(userId) {
-            //console.log(userId)
-            Swal.fire('Deseja Remover esse usuário?')
-            axios.delete(this.url + userId)
-                .then(response => this.codigo = (response.data.code))
-            if (this.codigo == 2) {
-                Swal.fire('Usuário Não Encontrado!')
-            } else {
-                Swal.fire('Usuário Removido!')
-            }
-
+           usuario.deleteUser(userId)
         },
+        
         editarUser(usuario){
             this.alterUser=usuario
         },
+        
         atualizarUser() {
             //não funciona, consertar
+
+            //talvez passar um objeto novo no id antigo
+            /* é possivel importar outro componente como função para a tela atual,
+            onde a tela atual passa o varlor das variáveis e o componente chamado processa e retorna em uma função
+            */
             if(this.alterUser.senha !=null && this.alterUser.senha !=''){
                 this.editUser.senha = this.alterUser.senha
                 Swal.fire({
